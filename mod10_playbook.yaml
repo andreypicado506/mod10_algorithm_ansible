@@ -1,0 +1,21 @@
+---
+- name: Calculate Luhn Check Digit
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Input number
+      ansible.builtin.pause:
+        prompt: "Enter the number to calculate the Luhn check digit for: "
+      register: user_input
+
+    - name: Remove non-numeric characters
+      ansible.builtin.set_fact:
+        cleaned_input: "{{ user_input.user_input }}"
+
+    - name: Calculate Luhn check digit
+      ansible.builtin.set_fact:
+        luhn_digit: "{{ cleaned_input | luhn_check_digit }}"
+
+    - name: Display Luhn check digit
+      ansible.builtin.debug:
+        var: luhn_digit
