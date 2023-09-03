@@ -10,7 +10,7 @@
 
     - name: Remove non-numeric characters
       ansible.builtin.set_fact:
-        cleaned_input: "{{ user_input.user_input }}"
+        cleaned_input: "{{ user_input.user_input | regex_replace('[^0-9]', '') }}"
 
     - name: Calculate Luhn check digit
       ansible.builtin.set_fact:
